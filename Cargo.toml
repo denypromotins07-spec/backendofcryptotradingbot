@@ -1,0 +1,26 @@
+[package]
+name = "hft_crypto_bot"
+version = "0.5.0"
+edition = "2021"
+authors = ["HFT Quantitative Developer"]
+description = "Ultra-low-latency crypto trading bot with self-learning SOUL.md core"
+license = "MIT"
+
+[lib]
+name = "hft_crypto_bot"
+path = "src/lib.rs"
+
+[dependencies]
+
+[dev-dependencies]
+
+[profile.release]
+opt-level = 3
+lto = true
+codegen-units = 1
+panic = "unwind"
+strip = false
+
+[profile.dev]
+opt-level = 0
+debug = false
