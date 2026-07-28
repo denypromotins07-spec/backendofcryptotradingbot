@@ -1,9 +1,9 @@
 [package]
 name = "hft_trading_bot"
-version = "0.2.0"
+version = "0.4.0"
 edition = "2021"
 authors = ["HFT Quant Team"]
-description = "Ultra-low-latency crypto trading bot - Stage 2: Market Data Pipeline"
+description = "Ultra-low-latency crypto trading bot - Stage 4: Risk, Execution, OMS, Recon"
 
 [dependencies]
 
