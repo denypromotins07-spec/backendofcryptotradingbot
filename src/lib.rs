@@ -51,3 +51,30 @@ pub use network::latency_probe::LatencyProbeManager;
 pub use recovery::sequence_tracker::SequenceTracker;
 pub use recovery::book_resync::BookResyncManager;
 pub use recovery::quality_monitor::QualityMonitor;
+
+// Stage 3: Strategy Engine Modules
+pub mod strategy {
+    pub mod signals {
+        pub mod signal_engine;
+        pub mod lead_lag_model;
+        pub mod relative_value;
+    }
+    
+    pub mod arbitrage {
+        pub mod funding_arb;
+        pub mod triangular_arb;
+        pub mod cross_venue_arb;
+    }
+    
+    pub mod microstructure {
+        pub mod market_maker;
+        pub mod order_flow_alpha;
+        pub mod liquidation_cascade;
+    }
+    
+    pub mod regime {
+        pub mod regime_classifier;
+        pub mod options_gamma;
+        pub mod ensemble_router;
+    }
+}
