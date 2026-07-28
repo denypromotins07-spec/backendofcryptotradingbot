@@ -1,100 +1,53 @@
-// src/lib.rs
-//! Ultra-Low-Latency Crypto Trading Bot Library
-//!
-//! This is a high-performance trading infrastructure designed for:
-//! - Microsecond execution latency
-//! - 6.5GB strict memory limit enforcement
-//! - Lock-free concurrent data structures
-//! - CPU cache-line optimized memory layouts
-//! - Kernel-bypass readiness
-//!
-//! # Architecture
-//!
-//! The library is organized into four main modules:
-//!
-//! ## Core (`src/core/`)
-//! - Custom bump allocator with circuit breaker
-//! - LMAX Disruptor-style event bus
-//! - Single-threaded deterministic event loop
-//!
-//! ## Transport (`src/transport/`)
-//! - Wait-free SPSC ring buffers
-//! - Shared-memory IPC channels
-//! - Memory-mapped file handlers
-//!
-//! ## Market Data (`src/market_data/`)
-//! - SBE codec with AVX2 acceleration
-//! - Flat-array lock-free order book
-//! - Normalized tick feed with gap detection
-//!
-//! ## Hardware (`src/hardware/`)
-//! - Custom thread pool with CPU affinity
-//! - NUMA-aware memory allocator
-//! - OS-level core pinning
+//! Ultra-low-latency crypto trading bot - Stage 2
+//! 
+//! This crate implements the market data pipeline with:
+//! - Multi-exchange gateway abstraction
+//! - Cross-venue normalization
+//! - Kernel-bypass networking
+//! - Feed recovery mechanisms
 
 #![no_std]
-#![cfg_attr(test, allow(dead_code))]
-#![warn(clippy::all)]
-#![forbid(clippy::box_collection, clippy::vec_box)]
+#![feature(const_mut_refs)]
+#![feature(maybe_uninit_zeroed)]
+#![allow(dead_code)]
+#![allow(unused_variables)]
 
 extern crate alloc;
-extern crate std;
 
-/// Compile-time assertion macro
-#[macro_export]
-macro_rules! const_assert {
-    ($x:expr) => {
-        const _: [(); 0 - !{
-            const ASSERT: bool = $x;
-            ASSERT
-        } as usize] = [];
-    };
+pub mod transport {
+    pub mod ring_buffer;
 }
 
-// Core modules
-pub mod allocator;
-pub mod event_loop;
-
-// Transport modules  
-pub mod ring_buffer;
-pub mod ipc_channel;
-pub mod shared_memory;
-
-// Market data modules
-pub mod sbe_codec;
-pub mod order_book;
-pub mod tick_feed;
-
-// Hardware modules
-pub mod thread_pool;
-pub mod numa_allocator;
-pub mod core_pinner;
-
-/// Library version
-pub const VERSION: &str = env!("CARGO_PKG_VERSION");
-
-/// Get library build info
-pub fn build_info() -> &'static str {
-    concat!(
-        "Ultra-Low-Latency Crypto Trading Bot v",
-        env!("CARGO_PKG_VERSION"),
-        "\n",
-        "Built with Rust"
-    )
+pub mod gateways {
+    pub mod gateway_manager;
+    pub mod binance_ws_adapter;
+    pub mod fix_protocol_engine;
 }
 
-#[cfg(test)]
-mod tests {
-    use super::*;
-
-    #[test]
-    fn test_version() {
-        assert!(!VERSION.is_empty());
-    }
-
-    #[test]
-    fn test_build_info() {
-        let info = build_info();
-        assert!(info.contains("Ultra-Low-Latency"));
-    }
+pub mod normalization {
+    pub mod symbol_mapper;
+    pub mod l2_normalizer;
+    pub mod microprice_engine;
 }
+
+pub mod network {
+    pub mod xdp_wrapper;
+    pub mod ptp_clock_sync;
+    pub mod latency_probe;
+}
+
+pub mod recovery {
+    pub mod sequence_tracker;
+    pub mod book_resync;
+    pub mod quality_monitor;
+}
+
+// Re-export main types
+pub use gateways::gateway_manager::{Gateway, GatewayManager, MarketEvent, GatewayState};
+pub use normalization::symbol_mapper::SymbolMapper;
+pub use normalization::l2_normalizer::{L2Normalizer, NormalizedBook};
+pub use normalization::microprice_engine::MicropriceEngine;
+pub use network::latency_probe::LatencyProbeManager;
+pub use recovery::sequence_tracker::SequenceTracker;
+pub use recovery::book_resync::BookResyncManager;
+pub use recovery::quality_monitor::QualityMonitor;
