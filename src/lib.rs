@@ -1,37 +1,21 @@
-//! Ultra-Low-Latency HFT Trading Bot - Stage 4
-//! 
-//! This stage implements:
-//! - Chapter 1: Global Pre-Trade Risk Bus & Dynamic Position Sizing
-//! - Chapter 2: Smart Order Routing & Algorithmic Execution  
-//! - Chapter 3: Order Management System (OMS) & State Machines
-//! - Chapter 4: Real-Time Reconciliation & Transaction Cost Analysis
+//! Ultra-Low-Latency Crypto Trading Bot - Stage 5
+//!
+//! This library implements the Self-Learning "SOUL.md" Core, Observability,
+//! Security Governance, and Compliance modules for an HFT crypto trading bot.
 
-#![no_std]
-#![feature(avx2)]
-#![feature(asm_experimental_arch)]
-#![allow(clippy::all)]
-#![deny(clippy::alloc_instead_of_core)]
+#![allow(clippy::missing_safety_doc)]
+#![allow(clippy::undocumented_unsafe_blocks)]
+#![warn(missing_docs)]
 
-pub mod risk {
-    pub mod pre_trade_bus;
-    pub mod position_sizer;
-    pub mod var_calculator;
-}
+pub mod soul;
+pub mod observability;
+pub mod security;
+pub mod compliance;
 
-pub mod execution {
-    pub mod smart_router;
-    pub mod twap_vwap;
-    pub mod iceberg_handler;
-}
-
-pub mod oms {
-    pub mod order_state_machine;
-    pub mod idempotency_key;
-    pub mod self_trade_prevention;
-}
-
-pub mod recon {
-    pub mod real_time_recon;
-    pub mod tca_engine;
-    pub mod settlement_tracker;
+/// Re-export all public types for convenience
+pub mod prelude {
+    pub use crate::soul::{SoulMemory, OnlineBandit, MistakeAnalyzer};
+    pub use crate::observability::{MetricsBus, TraceLogger, AnomalyDetector};
+    pub use crate::security::{SecretVault, HsmKmsLayer, NetworkAcl};
+    pub use crate::compliance::{AuditLedger, RateLimiter, JurisdictionFilter};
 }

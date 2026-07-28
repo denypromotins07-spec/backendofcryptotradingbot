@@ -1,9 +1,14 @@
 [package]
-name = "hft_trading_bot"
-version = "0.4.0"
+name = "hft_crypto_bot"
+version = "0.5.0"
 edition = "2021"
-authors = ["HFT Quant Team"]
-description = "Ultra-low-latency crypto trading bot - Stage 4: Risk, Execution, OMS, Recon"
+authors = ["HFT Quantitative Developer"]
+description = "Ultra-low-latency crypto trading bot with self-learning SOUL.md core"
+license = "MIT"
+
+[lib]
+name = "hft_crypto_bot"
+path = "src/lib.rs"
 
 [dependencies]
 
@@ -13,8 +18,9 @@ description = "Ultra-low-latency crypto trading bot - Stage 4: Risk, Execution, 
 opt-level = 3
 lto = true
 codegen-units = 1
-panic = "abort"
+panic = "unwind"
+strip = false
 
-[profile.bench]
-opt-level = 3
-lto = true
+[profile.dev]
+opt-level = 0
+debug = false
