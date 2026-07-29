@@ -1,5 +1,7 @@
 ```
 # Compiled and build artifacts
+*.pyc
+__pycache__/
 *.o
 *.obj
 *.exe
@@ -7,23 +9,24 @@
 *.so
 *.a
 *.out
-target/
+*.class
+*.pyd
 
 # Dependencies
-**/node_modules/
-**/venv/
-**/env/
-**/.venv/
-**/__pycache__/
-**/.mypy_cache/
-**/.pytest_cache/
-**/.gradle/
-**/deps/
-**/vendor/
+.venv/
+venv/
+node_modules/
+.mypy_cache/
+.pytest_cache/
+.coverage
+coverage/
+htmlcov/
 
-# Rust-specific
-Cargo.lock
-**/target/
+# Build directories
+dist/
+build/
+target/
+.gradle/
 
 # Logs and temp files
 *.log
@@ -39,15 +42,12 @@ Cargo.lock
 # Editors
 .vscode/
 .idea/
-*.swp
-*.swo
 
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# OS
+# System files
 .DS_Store
 Thumbs.db
+
+# Rust specific
+Cargo.lock
+*.rs.bk
 ```
