@@ -1,50 +1,29 @@
-//! Ultra-Low-Latency Crypto Trading Bot - Stage 9
+//! Ultra-Low-Latency Crypto Trading Bot - Stage 13
 //!
-//! This library implements Smart Money Concepts (SMC), Streaming Technical Analysis,
-//! DeFi Analytics, Real-Time Portfolio Optimization, ML Inference, Options Pricing,
-//! Feature Engineering, and Macro Asset Correlation for HFT crypto trading.
+//! This library implements Advanced Order Types, Exchange Matching Emulation,
+//! Latency Arbitrage, and High-Frequency Data Compression for HFT crypto trading.
 //!
 //! ## Architecture
 //!
-//! ### Chapter 1: Smart Money Concepts (SMC) & Liquidity Engineering
-//! - Break of Structure (BOS) and Change of Character (CHoCH) detection
-//! - Equal highs/lows identification and liquidity sweep detection
-//! - Order block, Breaker block, and Fair Value Gap (FVG) mapping
+//! ### Chapter 1: Advanced Order Types & Execution Nuances (Stage 13)
+//! - Post-only, IOC, FOK, GTT order state machines with strict validation
+//! - Reduce-only logic and position netting validators
+//! - Iceberg order slicer with randomized child sizes
 //!
-//! ### Chapter 2: Streaming Technical Analysis & Indicator Engine
-//! - Lock-free streaming EMA, SMA, and VWAP calculators
-//! - RSI, MACD, and ADX with SIMD-optimized rolling windows
-//! - Bollinger Bands, ATR, and Keltner Channels with branchless math
+//! ### Chapter 2: Exchange Specific Quirks & Matching Engine Emulation (Stage 13)
+//! - Binance matching engine emulation (price-time priority, STP rules)
+//! - Bybit quirks (unified margin, fee rebates, order limits)
+//! - OKX quirks (portfolio margin, combo margins, API rate limits)
 //!
-//! ### Chapter 3: DeFi Analytics, TVL, and Validator Metrics
-//! - Real-time Total Value Locked (TVL) and protocol revenue aggregator
-//! - Staking yield, validator uptime, and slashing risk monitor
-//! - High-throughput smart contract event log parser
+//! ### Chapter 3: Latency Arbitrage & Cross-Venue Sniping (Stage 13)
+//! - Cross-venue latency arbitrage sniper using consolidated micro-prices
+//! - Stale quote detector and toxic flow identifier
+//! - Network jitter exploiter for microsecond edge extraction
 //!
-//! ### Chapter 4: Real-Time Portfolio Optimization & Risk Parity
-//! - Risk Parity and Hierarchical Risk Parity (HRP) weight calculator
-//! - SIMD-accelerated Mean-Variance optimization with Ledoit-Wolf shrinkage
-//! - Threshold-based and time-sliced atomic rebalancing execution router
-//!
-//! ### Chapter 5: Lightweight Machine Learning Inference (Stage 9)
-//! - Oblivious Decision Trees (CatBoost-style) inference engine
-//! - Minimalist ONNX tensor parser for neural net execution
-//! - Streaming SGD for continuous online learning
-//!
-//! ### Chapter 6: Advanced Options Pricing (Stage 9)
-//! - Lock-free implied volatility surface construction
-//! - SIMD-accelerated Black-Scholes-Merton pricing and Greeks
-//! - Real-time Gamma Exposure (GEX) tracker
-//!
-//! ### Chapter 7: High-Dimensional Feature Engineering (Stage 9)
-//! - Memory-mapped feature store for online/offline serving
-//! - Streaming PCA using Oja's rule for dimensionality reduction
-//! - Online mutual information and feature importance tracker
-//!
-//! ### Chapter 8: Macro Asset Correlation & Regime Detection (Stage 9)
-//! - Real-time cross-asset correlation tracker (DXY, Gold, Oil, Bonds)
-//! - Hidden Markov Model for macroeconomic regime shifts
-//! - Fear & Greed composite index from options skew and funding rates
+//! ### Chapter 4: High-Frequency Data Compression & State Serialization (Stage 13)
+//! - Zero-copy L2 delta compression with run-length and dictionary encoding
+//! - Custom lock-free LZ4 variant for financial time-series
+//! - Ultra-fast state snapshot and recovery for zero-downtime hot-restarts
 //!
 //! ## Memory Safety Guarantees
 //!
@@ -52,12 +31,21 @@
 //! - Zero heap allocations in hot paths (pre-allocated buffers)
 //! - Fixed-point arithmetic throughout to avoid FPU non-determinism
 //! - Lock-free atomics for thread-safe state transitions
+//! - SIMD intrinsics (AVX2) for vectorized comparisons
 
 #![allow(clippy::missing_safety_doc)]
 #![allow(clippy::undocumented_unsafe_blocks)]
 #![warn(missing_docs)]
 #![cfg_attr(target_arch = "x86_64", feature(stdsimd))]
+#![deny(clippy::alloc_instead_of_core)]
+#![deny(clippy::std_instead_of_core)]
 
+pub mod orders;
+pub mod exchange_quirks;
+pub mod latency_arb;
+pub mod compression;
+
+// Re-export previous stages
 pub mod smc;
 pub mod indicators;
 pub mod defi;
