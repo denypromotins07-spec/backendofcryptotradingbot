@@ -1,26 +1,24 @@
-```
+```rust
 # Compiled and build artifacts
-*.o
-*.obj
-*.exe
-*.dll
-*.so
-*.a
-*.out
+target/
+**/*.rs.bk
+**/*.rlib
+**/*.so
+**/*.dylib
+**/*.dll
+**/*.exe
 
 # Dependencies
-target/
-**/node_modules/
-**/venv/
-**/.venv/
-**/__pycache__/
-**/.mypy_cache/
-**/.pytest_cache/
-**/.gradle/
+Cargo.lock
+vendor/
 
 # Logs and temp files
 *.log
 *.tmp
+
+# Editors
+.vscode/
+.idea/
 *.swp
 *.swo
 
@@ -29,20 +27,12 @@ target/
 .env.local
 *.env.*
 
-# Editors
-.vscode/
-.idea/
-
-# OS specific
-.DS_Store
-Thumbs.db
-
 # Coverage
 coverage/
 htmlcov/
 .coverage
 
-# Rust specific
-Cargo.lock
-**/target/
+# OS generated files
+.DS_Store
+Thumbs.db
 ```
