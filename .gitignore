@@ -1,38 +1,4 @@
-```rust
-# Compiled and build artifacts
+```
 target/
 **/*.rs.bk
-**/*.rlib
-**/*.so
-**/*.dylib
-**/*.dll
-**/*.exe
-
-# Dependencies
-Cargo.lock
-vendor/
-
-# Logs and temp files
-*.log
-*.tmp
-
-# Editors
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# Environment
-.env
-.env.local
-*.env.*
-
-# Coverage
-coverage/
-htmlcov/
-.coverage
-
-# OS generated files
-.DS_Store
-Thumbs.db
 ```
