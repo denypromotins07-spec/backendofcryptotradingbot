@@ -1,7 +1,8 @@
-//! Ultra-Low-Latency Crypto Trading Bot - Stage 8
+//! Ultra-Low-Latency Crypto Trading Bot - Stage 9
 //!
 //! This library implements Smart Money Concepts (SMC), Streaming Technical Analysis,
-//! DeFi Analytics, and Real-Time Portfolio Optimization for HFT crypto trading.
+//! DeFi Analytics, Real-Time Portfolio Optimization, ML Inference, Options Pricing,
+//! Feature Engineering, and Macro Asset Correlation for HFT crypto trading.
 //!
 //! ## Architecture
 //!
@@ -25,6 +26,26 @@
 //! - SIMD-accelerated Mean-Variance optimization with Ledoit-Wolf shrinkage
 //! - Threshold-based and time-sliced atomic rebalancing execution router
 //!
+//! ### Chapter 5: Lightweight Machine Learning Inference (Stage 9)
+//! - Oblivious Decision Trees (CatBoost-style) inference engine
+//! - Minimalist ONNX tensor parser for neural net execution
+//! - Streaming SGD for continuous online learning
+//!
+//! ### Chapter 6: Advanced Options Pricing (Stage 9)
+//! - Lock-free implied volatility surface construction
+//! - SIMD-accelerated Black-Scholes-Merton pricing and Greeks
+//! - Real-time Gamma Exposure (GEX) tracker
+//!
+//! ### Chapter 7: High-Dimensional Feature Engineering (Stage 9)
+//! - Memory-mapped feature store for online/offline serving
+//! - Streaming PCA using Oja's rule for dimensionality reduction
+//! - Online mutual information and feature importance tracker
+//!
+//! ### Chapter 8: Macro Asset Correlation & Regime Detection (Stage 9)
+//! - Real-time cross-asset correlation tracker (DXY, Gold, Oil, Bonds)
+//! - Hidden Markov Model for macroeconomic regime shifts
+//! - Fear & Greed composite index from options skew and funding rates
+//!
 //! ## Memory Safety Guarantees
 //!
 //! - All structures are `#[repr(C)]` and padded to 64-byte cache lines
@@ -41,6 +62,10 @@ pub mod smc;
 pub mod indicators;
 pub mod defi;
 pub mod portfolio;
+pub mod ml_inference;
+pub mod options;
+pub mod features;
+pub mod macro_engine;
 
 /// Re-export all public types for convenience
 pub mod prelude {
