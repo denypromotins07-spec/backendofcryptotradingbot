@@ -7,16 +7,23 @@
 *.so
 *.a
 *.out
+target/
 
 # Dependencies
-target/
 **/node_modules/
 **/venv/
+**/env/
 **/.venv/
 **/__pycache__/
 **/.mypy_cache/
 **/.pytest_cache/
 **/.gradle/
+**/deps/
+**/vendor/
+
+# Rust-specific
+Cargo.lock
+**/target/
 
 # Logs and temp files
 *.log
@@ -27,22 +34,20 @@ target/
 # Environment
 .env
 .env.local
-*.env.*
+.env.*
 
 # Editors
 .vscode/
 .idea/
-
-# OS specific
-.DS_Store
-Thumbs.db
+*.swp
+*.swo
 
 # Coverage
 coverage/
 htmlcov/
 .coverage
 
-# Rust specific
-Cargo.lock
-**/target/
+# OS
+.DS_Store
+Thumbs.db
 ```

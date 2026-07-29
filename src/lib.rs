@@ -1,21 +1,22 @@
-//! Ultra-Low-Latency Crypto Trading Bot - Stage 5
+//! Ultra-Low-Latency Crypto Trading Bot - Stage 6
 //!
-//! This library implements the Self-Learning "SOUL.md" Core, Observability,
-//! Security Governance, and Compliance modules for an HFT crypto trading bot.
+//! This library implements On-Chain Analytics, Network Health Monitoring,
+//! Stablecoin Safeguards, and Zero-Copy RPC Parsing for HFT crypto trading.
 
 #![allow(clippy::missing_safety_doc)]
 #![allow(clippy::undocumented_unsafe_blocks)]
 #![warn(missing_docs)]
+#![cfg_attr(target_arch = "x86_64", feature(stdsimd))]
 
-pub mod soul;
-pub mod observability;
-pub mod security;
-pub mod compliance;
+pub mod onchain;
+pub mod network_health;
+pub mod stablecoins;
+pub mod rpc_client;
 
 /// Re-export all public types for convenience
 pub mod prelude {
-    pub use crate::soul::{SoulMemory, OnlineBandit, MistakeAnalyzer};
-    pub use crate::observability::{MetricsBus, TraceLogger, AnomalyDetector};
-    pub use crate::security::{SecretVault, HsmKmsLayer, NetworkAcl};
-    pub use crate::compliance::{AuditLedger, RateLimiter, JurisdictionFilter};
+    pub use crate::onchain::{WhaleTracker, ExchangeFlowsAggregator, TokenUnlocksTracker};
+    pub use crate::network_health::{Eip1559Predictor, SolanaLeaderMonitor, BtcMempoolTracker};
+    pub use crate::stablecoins::{StablecoinSupplyMonitor, StablecoinDepegMonitor, BridgeFinalityMonitor};
+    pub use crate::rpc_client::{ZeroCopyRpcParser, WsSubscriptionManager, LatencyAwareRouter};
 }
